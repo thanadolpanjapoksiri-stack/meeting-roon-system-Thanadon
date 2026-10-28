@@ -1,15 +1,8 @@
 /** @type {import('next').NextConfig} */
 const isGithubActions = process.env.GITHUB_ACTIONS || false;
-let assetPrefix = undefined;
-let basePath = undefined;
-
-if (isGithubActions) {
-  const repo = process.env.GITHUB_REPOSITORY
-    ? process.env.GITHUB_REPOSITORY.replace(/.*?\//, "")
-    : "meeting-roon-system-Thanadon";
-  assetPrefix = `/${repo}/`;
-  basePath = `/${repo}`;
-}
+const repo = process.env.GITHUB_REPOSITORY
+  ? process.env.GITHUB_REPOSITORY.replace(/.*?\//, "")
+  : "meeting-roon-system-Thanadon";
 
 const nextConfig = {
   output: "export",
@@ -17,7 +10,7 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  ...(isGithubActions ? { basePath, assetPrefix } : {}),
+  ...(isGithubActions ? { basePath: `/${repo}` } : {}),
 };
 
 export default nextConfig;
