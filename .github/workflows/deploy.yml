@@ -31,7 +31,9 @@ jobs:
         run: npm ci --legacy-peer-deps || npm install --legacy-peer-deps
 
       - name: Build and Export
-        run: npm run build
+        run: |
+          npm run build
+          touch ./out/.nojekyll
         env:
           GITHUB_ACTIONS: true
           GITHUB_REPOSITORY: ${{ github.repository }}
